@@ -1,0 +1,6 @@
+/Users/user/Documents/project-internship/backend/obj/Debug/net7.0/backend.csproj.AssemblyReference.cache
+/Users/user/Documents/project-internship/backend/obj/Debug/net7.0/backend.GeneratedMSBuildEditorConfig.editorconfig
+/Users/user/Documents/project-internship/backend/obj/Debug/net7.0/backend.AssemblyInfoInputs.cache
+/Users/user/Documents/project-internship/backend/obj/Debug/net7.0/backend.AssemblyInfo.cs
+/Users/user/Documents/project-internship/backend/obj/Debug/net7.0/backend.csproj.CoreCompileInputs.cache
+/Users/user/Documents/project-internship/backend/obj/Debug/net7.0/backend.MvcApplicationPartsAssemblyInfo.cache
