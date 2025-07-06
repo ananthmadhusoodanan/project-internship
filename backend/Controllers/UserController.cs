@@ -2,54 +2,56 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Data;
 using backend.Models;
 
-[ApiController]
-[Route("api/user")]
-public class UserController : ControllerBase
+namespace backend.Controllers
 {
-    private readonly TIMSContext _context;
-
-    public UserController(TIMSContext context)
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly TIMSContext _context;
 
-    [HttpGet]
-    public IActionResult GetUsers()
-    {
-        var users = _context.Users.ToList();
-        return Ok(users);
-    }
+        public UserController(TIMSContext context)
+        {
+            _context = context;
+        }
 
-    [HttpPost]
-    public IActionResult AddUser([FromBody] User user)
-    {
-        _context.Users.Add(user);
-        _context.SaveChanges();
-        return Ok();
-    }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_context.Users.ToList());
+        }
 
-    [HttpPut("{id}")]
-    public IActionResult UpdateUser(int id, [FromBody] User updated)
-    {
-        var user = _context.Users.Find(id);
-        if (user == null) return NotFound();
+        [HttpPost]
+        public IActionResult Post([FromBody] User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return Ok(user);
+        }
 
-        user.Username = updated.Username;
-        user.Password = updated.Password;
-        user.Authority = updated.Authority;
-        _context.SaveChanges();
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] User updatedUser)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null) return NotFound();
 
-        return Ok();
-    }
+            user.UserName = updatedUser.UserName;
+            user.Email = updatedUser.Email;
+            user.Role = updatedUser.Role;
 
-    [HttpDelete("{id}")]
-    public IActionResult DeleteUser(int id)
-    {
-        var user = _context.Users.Find(id);
-        if (user == null) return NotFound();
+            _context.SaveChanges();
+            return Ok(user);
+        }
 
-        _context.Users.Remove(user);
-        _context.SaveChanges();
-        return Ok();
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null) return NotFound();
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
